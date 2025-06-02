@@ -3,6 +3,7 @@
   --color-text: #181818;
   --color-accent:  #3B82F6;
   --color-light-gray: #888888;
+  --Section-header-size: 62px;
 }
 
 * {
