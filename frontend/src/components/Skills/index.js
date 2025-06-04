@@ -1,13 +1,9 @@
 import React from "react"
 import {
-
     H6,
-
     SkillItem,
-
     SkillsGrid,
     SkillsSection,
-    SkilltTitle,
     StyledProgressBar,
 } from "./styles"
 
@@ -32,7 +28,7 @@ function Skills() {
 
     return (
         <SkillsSection>
-            <SkilltTitle>Skills</SkilltTitle>
+            <h1 className="section-title">Skills</h1>
             <SkillsGrid>
               {skillList?.map((skill, index) => {
                     const proficiencyDetail = proficiencyLevels.find(level => level.level === skill.level);
