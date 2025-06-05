@@ -27,7 +27,7 @@ function Skills() {
     ]
 
     return (
-        <SkillsSection>
+        <SkillsSection id="skills">
             <h1 className="section-title">Skills</h1>
             <SkillsGrid>
               {skillList?.map((skill, index) => {

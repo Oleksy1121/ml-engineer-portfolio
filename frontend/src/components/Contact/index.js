@@ -13,7 +13,7 @@ import {
 
 function Contact() {
     return (
-        <ContactContainer>
+        <ContactContainer id="contact">
             <h1 className="section-title">Contact</h1>
             <ContactCard>
                 <GetInTouch>
