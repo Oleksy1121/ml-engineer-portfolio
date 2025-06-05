@@ -6,6 +6,10 @@
   --Section-header-size: 62px;
 }
 
+.app {
+  width: 80%;
+}
+
 * {
   margin: 0px;
   box-sizing: border-box;
