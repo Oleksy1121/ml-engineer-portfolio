@@ -1,6 +1,6 @@
 import torch
-from training.model_builder import TinyVGG
-from training.image_transforms import *
+from backend.scripts.model_builder import TinyVGG
+from backend.scripts.image_transforms import *
 from PIL import Image
 import base64
 import io
