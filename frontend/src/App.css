@@ -1,0 +1,31 @@
+:root {
+  --color-bg: #FFFFFF;
+  --color-text: #181818;
+  --color-accent:  #3B82F6;
+  --color-light-gray: #888888;
+  --Section-header-size: 62px;
+}
+
+.app {
+  width: 80%;
+}
+
+* {
+  margin: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.section-title {
+    margin-top: 50px;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid var(--color-text);
+    font-size: var(--Section-header-size);
+}
