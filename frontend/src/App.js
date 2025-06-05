@@ -12,7 +12,7 @@ function App() {
     <TopNavbar></TopNavbar>
       <Routes>
         <Route path='/' element={<Portfolio></Portfolio>}></Route>
-        <Route path='/hand' element={<DigitPredictor></DigitPredictor>}></Route>
+        <Route path='/handwritten-digit-recognizer' element={<DigitPredictor></DigitPredictor>}></Route>
       </Routes>
 
     </div>
