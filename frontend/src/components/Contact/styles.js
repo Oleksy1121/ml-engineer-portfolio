@@ -1,13 +1,8 @@
 import styled from "styled-components";
 
 export const ContactContainer = styled.div`
-    width: 80%;
-    margin: 100px auto;
+    width: 100%;
     text-align: center;
-    
-    .section-title {
-        margin-bottom: 50px;
-    }
 `;
 
 export const ContactCard = styled.div`
@@ -15,11 +10,6 @@ export const ContactCard = styled.div`
     flex-direction: row;
     justify-content: space-between;
     gap: 50px;
-    background-color: var(--color-bg);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    margin-bottom: 100px;
 
     @media (max-width: 992px) {
         flex-direction: column;
@@ -46,7 +36,7 @@ export const GetInTouch = styled.div`
     p {
         font-size: 18px;
         line-height: 1.6;
-        color: var(--color-text);
+        color: var(--color-secondary-text); 
         margin-bottom: 20px;
     }
 
@@ -54,11 +44,11 @@ export const GetInTouch = styled.div`
         display: flex;
         align-items: center;
         font-size: 20px;
-        color: var(--color-text);
+        color: var(--color-secondary-text); 
 
         svg {
             margin-right: 15px;
-            color: var(--color-accent);
+            color: var(--color-accent); 
             font-size: 28px;
         }
 
@@ -67,7 +57,7 @@ export const GetInTouch = styled.div`
             text-decoration: none;
             &:hover {
                 text-decoration: underline;
-                color: var(--color-accent);
+                color: var(--color-accent); 
             }
         }
     }
@@ -96,7 +86,7 @@ export const MailContainer = styled.div`
         font-weight: bold;
         margin-bottom: 5px;
         display: block;
-        color: var(--color-text);
+        color: var(--color-text); 
         font-size: 16px;
     }
 
@@ -125,11 +115,11 @@ export const FormGroup = styled.div`
 export const FormInput = styled.input`
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid var(--color-light-gray);
+    border: 1px solid var(--color-border-light); 
     border-radius: 8px;
     font-size: 16px;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--color-card-bg); 
+    color: var(--color-text); 
     box-sizing: border-box;
 
     &:focus {
@@ -146,11 +136,11 @@ export const FormInput = styled.input`
 export const FormTextArea = styled.textarea`
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid var(--color-light-gray);
+    border: 1px solid var(--color-border-light);
     border-radius: 8px;
     font-size: 16px;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--color-card-bg);
+    color: var(--color-text); 
     min-height: 120px;
     resize: vertical;
     box-sizing: border-box;
@@ -172,19 +162,20 @@ export const FormButton = styled.button`
     padding: 15px 30px;
     width: fit-content;
     margin-top: 20px;
-    background-color: var(--color-bg);
-    color: var(--color-accent); 
-    border: 1px solid var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-bg); 
+    border: 1px solid var(--color-accent); 
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     align-self: flex-end;
 
     &:hover {
-        background-color: var(--color-accent); 
-        color: var(--color-bg); 
+        background-color: transparent; 
+        color: var(--color-accent); 
         transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(59, 130, 246, 0.3); 
+        box-shadow: 0 8px 15px var(--color-shadow-medium);
+        border-color: var(--color-accent); 
     }
 
     &:active {

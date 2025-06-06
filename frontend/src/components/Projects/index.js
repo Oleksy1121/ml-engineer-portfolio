@@ -13,6 +13,7 @@ import {
     ThumbnailContainer,
     ThumbnailImage,
 } from "./styles"
+import { FaGithub } from "react-icons/fa"
 
 const Projects = () => {
     return (
@@ -20,7 +21,7 @@ const Projects = () => {
             <h1 className="section-title">Projects</h1>
 
             {projectsData?.map((project, index) => (
-                <ProjectCard key={index}>
+                <ProjectCard key={index} className="app-card">
                     <ProjectTitle>{project.title}</ProjectTitle>
 
                     <ProjectColumns>
@@ -45,10 +46,10 @@ const Projects = () => {
                                     alt={project.title}
                                 ></ThumbnailImage>
                             </Link>
-
-                            <a href={project.githubLink}>
-                                <h6>{project.githubLink} </h6>
-                            </a>
+                        <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="github-link">
+                            <FaGithub size={24} />
+                            <span>GitHub Repository</span>
+                        </a>
                         </ThumbnailContainer>
                     </ProjectColumns>
                 </ProjectCard>

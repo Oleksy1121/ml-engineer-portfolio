@@ -8,14 +8,15 @@ import TopNavbar from './components/Navbar';
 function App() {
   return (
     <Router>
-    <div className="App">
+    <div className="app">
     <TopNavbar></TopNavbar>
+    {/* <NavbarTest></NavbarTest> */}
       <Routes>
         <Route path='/' element={<Portfolio></Portfolio>}></Route>
         <Route path='/handwritten-digit-recognizer' element={<DigitPredictor></DigitPredictor>}></Route>
       </Routes>
 
-    </div>
+    </div>s
     </Router>
 
   );

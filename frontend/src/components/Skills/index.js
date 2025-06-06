@@ -38,7 +38,7 @@ function Skills() {
                     }
 
                     return(
-                    <SkillItem key={index}>
+                    <SkillItem key={index} className="app-card">
                         <h2>{skill.name}</h2>
                         <H6>{skill.level}</H6>
                         <StyledProgressBar
