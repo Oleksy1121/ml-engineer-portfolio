@@ -26,20 +26,20 @@ function TopNavbar() {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav" className="justify-content-between">
           <Nav className="mx-auto">
-            <StyledNavLink className="nav-link" as={NavHashLink} to="/#portfolio">About</StyledNavLink>
+            <StyledNavLink className="nav-link" as={NavHashLink} to="/#about">About</StyledNavLink>
             <StyledNavLink className="nav-link" as={NavHashLink} to="/#skills">Skills</StyledNavLink>
             <StyledNavLink className="nav-link" as={NavHashLink} to="/#projects">Projects</StyledNavLink>
             <StyledNavLink className="nav-link" as={NavHashLink} to="/#contact">Contact</StyledNavLink>
           </Nav>
 
           <div className="d-flex align-items-center gap-3">
-            <SocialIconLink href="mailto:your_email@example.com" target="_blank" rel="noopener noreferrer">
+            <SocialIconLink href="mailto:m.oleszczyk@o2.pl" target="_blank" rel="noopener noreferrer">
               <FaEnvelope size={22} />
             </SocialIconLink>
-            <SocialIconLink href="https://linkedin.com/in/your_linkedin_profile" target="_blank" rel="noopener noreferrer">
+            <SocialIconLink href="https://www.linkedin.com/in/marcin-o-2aaa75208/" target="_blank" rel="noopener noreferrer">
               <FaLinkedinIn size={22} />
             </SocialIconLink>
-            <SocialIconLink href="https://github.com/your_github_profile" target="_blank" rel="noopener noreferrer">
+            <SocialIconLink href="https://github.com/Oleksy1121" target="_blank" rel="noopener noreferrer">
               <FaGithub size={22} />
             </SocialIconLink>
             <ThemeToggleButton onClick={toggleTheme}>
