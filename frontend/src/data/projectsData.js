@@ -1,57 +1,34 @@
-import linearRegressionThumbnail from '../assets/linear-regression-thumbnail.jpg'
+import handwrittenDigitThumbnail from '../assets/handwritten-digit-thumbnail.jpg'
 
 const projectsData = [
     {
         id: 1,
-        title: "Exploring Linear Regression and Gradient Descent",
-        description:
-            `
-            <p>The project serves as a practical demonstration of linear regression and the gradient descent algorithm with an implementation in Python. The goal is to understand fundamental machine learning techniques, including:</p>
+        title: "Handwritten Digit Recognizer",
+        description: `
+            <p>This project presents a handwritten digit recognition system based on deep learning techniques using the MNIST dataset. Key aspects include:</p>
             <ul>
-                <li><strong>Linear Regression:</strong> Analysis of its functionality.</li>
-                <li><strong>Gradient Descent:</strong> Application of the optimization algorithm to minimize the cost function during model training.</li>
-                <li><strong>Learning Process Visualization:</strong> Graphical representation of model weight updates.</li>
+                <li><strong>Neural Network Architecture:</strong> Implementation of a convolutional neural network (CNN) for image classification.</li>
+                <li><strong>Training and Evaluation:</strong> Training the model on the MNIST dataset and assessing its performance.</li>
+                <li><strong>User Interface:</strong> A web-based demo allowing users to draw digits and receive predictions in real-time.</li>
             </ul>
-            <p>The project provides practical insight into these techniques through the implementation and analysis of the linear regression model training process.</p>
+            <p>This project combines deep learning with practical web deployment for interactive digit recognition.</p>
         `,
         skills: [
             "Python",
-            "Machine Learning",
-            "Data Visualization",
-            "NumPy",
+            "Pytorch",
+            "Scikit-learn",
+            "Numpy",
             "Pandas",
+            "Matplotlib",
+            "FastAPI",
+            "JavaScript",
+            "React",
+            "Docker"
         ],
-        githubLink:
-            "https://github.com/Oleksy1121/Exploring-Linear-Regression-and-Gradient",
-        thumbnail: linearRegressionThumbnail,
-        linkToDemo: '/handwritten-digit-recognizer'
-    },
-
-        {
-        id: 2,
-        title: "Demo project",
-        description:
-            `
-            <p>The project serves as a practical demonstration of linear regression and the gradient descent algorithm with an implementation in Python. The goal is to understand fundamental machine learning techniques, including:</p>
-            <ul>
-                <li><strong>Linear Regression:</strong> Analysis of its functionality.</li>
-                <li><strong>Gradient Descent:</strong> Application of the optimization algorithm to minimize the cost function during model training.</li>
-                <li><strong>Learning Process Visualization:</strong> Graphical representation of model weight updates.</li>
-            </ul>
-            <p>The project provides practical insight into these techniques through the implementation and analysis of the linear regression model training process.</p>
-        `,
-        skills: [
-            "Java",
-            "AI",
-            "Data",
-            "NumPy",
-            "css",
-        ],
-        githubLink:
-            "https://github.com/Oleksy1121/Exploring-Linearsdf-Regression-and-Gradient",
-        thumbnail: linearRegressionThumbnail,
-        linkToDemo: '/handwritten-digit-recognizer'
-    },
-]
+        githubLink: "https://github.com/Oleksy1121/Handwritten-digit-recognizer",
+        thumbnail: handwrittenDigitThumbnail,
+        linkToDemo: '/handwritten-digit-recognizer',
+    }
+];
 
 export default projectsData

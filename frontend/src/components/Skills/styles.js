@@ -29,6 +29,7 @@ export const SkillItem = styled.div`
     color: var(--color-text);
     width: 100%;
     box-shadow: 0 4px 8px var(--color-shadow-light);
+    margin: 0;
 
     &:hover {
         transform: translateY(-4px);
@@ -40,7 +41,7 @@ export const SkillItem = styled.div`
 export const SkillsGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+    gap: 20px 40px;
     width: 100%;
 
     @media (max-width: 1600px) {

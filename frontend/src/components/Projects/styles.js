@@ -74,7 +74,7 @@ export const SkillBadgeContainer = styled.div`
 `;
 
 export const SkillBadge = styled(Badge)`
-    background-color: var(--color-accent);
+    background-color: var(--color-accent) !important;
     color: var(--color-bg);
     font-size: 0.8em;
     padding: 7px 14px;

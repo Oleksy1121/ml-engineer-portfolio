@@ -21,7 +21,7 @@ function TopNavbar() {
     <StyledNavbar expand="lg" className="top-navbar py-3 shadow-sm">
       <Container>
         <StyledBrand className="brand" as={Link} to="/">
-          ML Engineer
+          Portfolio
         </StyledBrand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav" className="justify-content-between">
