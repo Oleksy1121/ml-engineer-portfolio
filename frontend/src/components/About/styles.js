@@ -5,8 +5,7 @@ export const AboutContainer = styled.div`
 `
 
 export const AboutCard = styled.div`
-  color: var(--color-primary-text);
-  text-align: left;
+  text-align: justify;
 
   p {
     color: var(--color-secondary-text);
@@ -17,32 +16,16 @@ export const AboutCard = styled.div`
 
 export const ContextContainer = styled.div`
   display: grid;
-  /* grid-template-areas:
-    "title image"
-    "text image"; */
-
-
-    grid-template-areas: ${({$reverse}) => 
-    $reverse?
-
-
-    `
+  grid-template-areas: ${({ $reverse }) =>
+    $reverse
+      ? `
       "image title"
       "image text";
-    ` 
-
-    :
-
-
     `
+      : `
       "title image"
       "text image";
-    ` 
-
-
-
-    };
-
+    `};
 
   h2 {
     grid-area: title;
@@ -55,8 +38,7 @@ export const ContextContainer = styled.div`
     border-radius: 12px;
     box-shadow: 0 6px 15px var(--color-shadow-light);
     margin: auto;
-    margin: ${props => props.$reverse ? "0 50px 0 0": "0 0 0 50px"};
-
+    margin: ${(props) => (props.$reverse ? "0 50px 0 0" : "0 0 0 50px")};
 
     &:hover {
       box-shadow: 0 8px 15px var(--color-shadow-medium);

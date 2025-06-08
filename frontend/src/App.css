@@ -39,11 +39,7 @@ body {
     min-height: 100vh !important;
 }
 
-h2 {
-    font-size: 36px !important;
-    color: var(--color-text) !important;
-    margin-bottom: 20px !important;
-}
+
 
 .app {
     width: 80%;
