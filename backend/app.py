@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
-from backend.predict.service import DigitPredictService
+from predict.service import DigitPredictService
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -14,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL_PATH = "backend/models/best.pt"
+MODEL_PATH = "models/best.pt"
 
 try:
     predictor_service = DigitPredictService(MODEL_PATH)
