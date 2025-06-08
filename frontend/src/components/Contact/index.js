@@ -15,7 +15,7 @@ function Contact() {
     return (
         <ContactContainer id="contact">
             <h1 className="section-title">Contact</h1>
-            <ContactCard>
+            <ContactCard className="app-card">
                 <GetInTouch>
                     <h2>Get in Touch</h2>
                     <p>If you are interested in my profile, feel free to contact me via the options below:</p> 

@@ -46,7 +46,7 @@ function DigitPredictor() {
     }
 
     return (
-        <MainContainer>
+        <MainContainer className="app-card">
             <DigitPredictiorContainer>
                 <Header>Draw your own digit !</Header>
                 <Canvas ref={canvasRef}></Canvas>

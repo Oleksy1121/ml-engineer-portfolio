@@ -1,52 +1,73 @@
 import styled from 'styled-components'
 
-
 export const MainContainer = styled.div`
     display: flex;
+    flex-direction: row;
     margin: 50px auto;
-    border: 1px black var(--color-text);
-    border-radius: 26px;
-    width: 1200px;
-    height: 900px;
-    box-shadow: 0px 0px 30px var(--color-text);
+    width: 100%; 
+    max-width: 1200px;
+    min-height: 600px;
     overflow: hidden;
+    
+    @media (max-width: 1150px) {
+        flex-direction: column;
+    }
 `
 
-
 export const DigitPredictiorContainer = styled.div`
-    padding: 20px;
-    width: 800px;
-    background: none;
+    padding: 30px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    @media (max-width: 992px) {
+        padding: 20px;
+    }
 `
 
 export const Header = styled.h1`
     text-align: center;
-    color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-primary);
+    font-size: 40px;
+    margin-bottom: 20px;
 `
 
 export const ButtonContainer = styled.div`
-    margin: 50px auto;
+    margin-top: 30px;
     width: 80%;
+    max-width: 400px;
     display: flex;
     justify-content: space-between;
+    gap: 20px;
+
 `
 
 export const Button = styled.button`
-    width: 45%;
-    height: 60px;
-    font-size: 2.2em;
-    font-weight: 500;
-    background: none;
-    border: 2px solid var(--color-text);
-    border-radius: 10px;
-    color: var(--color-text);
+    flex: 1;
+    height: 50px;
+    font-size: 1.5em;
+    font-weight: 600;
+    background: transparent;
+    border: 2px solid var(--color-accent);
+    border-radius: 8px;
+    color: var(--color-accent);
     cursor: pointer;
-
     transition: all 0.3s ease;
 
     &:hover{
         background: var(--color-accent);
-        color: white;
+        color: var(--color-bg);
         border: 2px solid var(--color-accent);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: none;
     }
 `

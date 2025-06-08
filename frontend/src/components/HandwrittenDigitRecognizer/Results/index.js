@@ -22,7 +22,7 @@ function Results({ results }) {
     return (
         <ResultsContainer>
             {results.predictions?.map((pred) => (
-                <PredictionBarContainer key={pred.digit}>
+                <PredictionBarContainer key={pred.digit} className="prediction-bar-container">
                     <PredictionLabel>{pred.digit}</PredictionLabel>
                     <ProgressBarWrapper>
                         <ProgressBarFill
