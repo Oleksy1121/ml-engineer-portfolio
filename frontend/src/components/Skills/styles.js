@@ -6,7 +6,6 @@ export const SkillsSection = styled.div`
 
   @media (max-width: 768px) {
     margin-top: 80px;
-    padding: 0 15px;
   }
 `
 
@@ -22,7 +21,7 @@ export const StyledProgressBar = styled(ProgressBar)`
 `
 
 export const SkillItem = styled.div`
-  padding: 20px;
+  padding: 1.1rem;
   text-align: left;
   color: var(--color-text);
   width: 100%;
@@ -31,26 +30,18 @@ export const SkillItem = styled.div`
 
 export const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px 40px;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  
+  gap: 1rem;
   width: 100%;
   margin: 40px auto;
 
-  @media (max-width: 1600px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 1150px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 1200px) {
+    gap: 0.8rem;
   }
 
   @media (max-width: 768px) {
-    gap: 30px;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 0.6rem;
   }
 `
 

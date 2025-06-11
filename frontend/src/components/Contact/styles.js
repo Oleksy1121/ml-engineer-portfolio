@@ -28,13 +28,11 @@ export const GetInTouch = styled.div`
     padding-right: 20px;
 
     h2 {
-        font-size: 36px;
         color: var(--color-text);
         margin-bottom: 20px;
     }
 
     p {
-        font-size: 18px;
         line-height: 1.6;
         color: var(--color-secondary-text); 
         margin-bottom: 20px;
