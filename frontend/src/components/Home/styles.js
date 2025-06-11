@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
     background: var(--color-bg);
-    margin: 100px auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -14,12 +15,10 @@ export const HomeContainer = styled.div`
         width: 95%;
         text-align: center;
         padding: 30px 15px;
-        margin: 80px auto;
+        margin-top: 80px;
+        margin-bottom: 0;
     }
 
-    @media (max-width: 576px) {
-        margin: 50px auto;
-    }
 `;
 
 export const TextContainer = styled.div`

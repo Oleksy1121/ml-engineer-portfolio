@@ -5,16 +5,11 @@ export const ProjectsContainer = styled.div`
   width: 100%;
 
   h2 {
-    font-size: 36px;
     color: var(--color-text);
     text-align: center;
     margin-bottom: 20px;
   }
 
-  @media (max-width: 768px) {
-    margin-top: 80px;
-    padding: 0 15px;
-  }
 `
 
 export const ProjectCard = styled.div`
@@ -31,7 +26,7 @@ export const ProjectColumns = styled.div`
   @media (max-width: 992px) {
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
   }
 `
 
@@ -44,7 +39,6 @@ export const DescriptionContainer = styled.div`
 
   @media (max-width: 992px) {
     width: 100%;
-    margin-bottom: 25px;
   }
 `
 
@@ -58,7 +52,7 @@ export const SkillBadgeContainer = styled.div`
 export const SkillBadge = styled(Badge)`
   background-color: var(--color-accent) !important;
   color: var(--color-bg);
-  font-size: 0.8em;
+  font-size: 0.8rem;
   padding: 7px 14px;
   border-radius: 20px;
   text-transform: uppercase;
@@ -71,6 +65,11 @@ export const SkillBadge = styled(Badge)`
     transform: translateY(-2px);
     cursor: default;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.65rem;
+  }
+
 `
 
 export const ThumbnailContainer = styled.div`
@@ -81,7 +80,7 @@ export const ThumbnailContainer = styled.div`
     width: 80%;
     max-width: 450px;
   }
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `
@@ -134,6 +133,7 @@ export const CallToActionLink = styled.a`
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  margin-bottom: 40px;
 
   &:hover {
     background-color: transparent;

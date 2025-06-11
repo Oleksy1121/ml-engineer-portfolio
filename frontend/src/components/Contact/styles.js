@@ -28,13 +28,11 @@ export const GetInTouch = styled.div`
     padding-right: 20px;
 
     h2 {
-        font-size: 36px;
         color: var(--color-text);
         margin-bottom: 20px;
     }
 
     p {
-        font-size: 18px;
         line-height: 1.6;
         color: var(--color-secondary-text); 
         margin-bottom: 20px;
@@ -43,13 +41,13 @@ export const GetInTouch = styled.div`
     div {
         display: flex;
         align-items: center;
-        font-size: 20px;
+        font-size: 1.2rem;
         color: var(--color-secondary-text); 
 
         svg {
             margin-right: 15px;
             color: var(--color-accent); 
-            font-size: 28px;
+            font-size: 1.2rem;
         }
 
         a {

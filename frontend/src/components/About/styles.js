@@ -10,12 +10,12 @@ export const AboutCard = styled.div`
   p {
     color: var(--color-secondary-text);
     font-family: var(--font-secondary);
-    font-size: 1.2rem;
   }
 `
 
 export const ContextContainer = styled.div`
   display: grid;
+  padding-bottom: 20px;
   grid-template-areas: ${({ $reverse }) =>
     $reverse
       ? `
@@ -49,7 +49,7 @@ export const ContextContainer = styled.div`
     grid-area: text;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1000px) {
     grid-template-areas:
       "title"
       "image"
@@ -57,7 +57,8 @@ export const ContextContainer = styled.div`
 
     img {
       margin: auto auto 20px auto;
-      width: 450px;
+      width: 80%;
+      max-width: 400px;
     }
   }
 `

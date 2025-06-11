@@ -27,7 +27,7 @@ function Skills() {
 
           return (
             <SkillItem key={index} className="app-card">
-              <h2>{skill.name}</h2>
+              <h4>{skill.name}</h4>
               <P>{skill.level}</P>
               <StyledProgressBar now={proficiencyDetail.value}></StyledProgressBar>
             </SkillItem>
