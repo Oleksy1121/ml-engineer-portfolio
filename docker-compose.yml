@@ -9,12 +9,11 @@ services:
 
   
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: https://backend-202366413188.europe-central2.run.app
     container_name: frontend
     ports:
       - "3000:80"
-    environment:
-      REACT_APP_API_URL: http://backend:8000
-    depends_on:
-      - backend
     restart: always
