@@ -15,8 +15,8 @@
     --font-secondary: "Open Sans", sans-serif;
     --font-size-base: 16px;
 
-    --font-size-h1: clamp(48px, 6vw, 66px);
-    --font-size-h2: clamp(0.8rem, 2.2vw, 2.2rem);
+    --font-size-h1: clamp(1.5rem, 2.6vw, 3rem);
+    --font-size-h2: clamp(1.2rem, 2.2vw, 2.2rem);
     --font-size-p: clamp(0.5rem, 1.5vw, 1.1rem);
     --font-size-section-title: 40px;
 }
@@ -78,14 +78,6 @@ h2 {
     }
 }
 
-/* h2 {
-    font-size: var(--font-size-h2);
-}
-
-p {
-    font-size: 0.8rem !important;
-} */
-
 
 * {
     margin: 0px;
@@ -99,7 +91,7 @@ p {
     text-align: left;
     border-bottom: 1px solid var(--color-border-light);
     padding-bottom: 15px;
-    font-size: 3em;
+    font-size: var(--font-size-h1) !important;
     font-family: var(--font-primary);
     font-weight: 700;
     color: var(--color-text);
@@ -123,13 +115,8 @@ p {
     }
 
     @media (max-width: 768px) {
-        font-size: clamp(36px, 6vw, var(--Section-header-size));
         margin-top: 40px;
         padding-bottom: 10px;
-    }
-    @media (max-width: 480px) {
-        font-size: clamp(30px, 7vw, var(--Section-header-size));
-        margin-top: 30px;
     }
 }
 

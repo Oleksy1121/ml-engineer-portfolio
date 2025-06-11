@@ -41,13 +41,13 @@ export const GetInTouch = styled.div`
     div {
         display: flex;
         align-items: center;
-        font-size: 20px;
+        font-size: 1.2rem;
         color: var(--color-secondary-text); 
 
         svg {
             margin-right: 15px;
             color: var(--color-accent); 
-            font-size: 28px;
+            font-size: 1.2rem;
         }
 
         a {

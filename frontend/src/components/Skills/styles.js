@@ -4,9 +4,6 @@ import { ProgressBar } from "react-bootstrap"
 export const SkillsSection = styled.div`
   width: 100%;
 
-  @media (max-width: 768px) {
-    margin-top: 80px;
-  }
 `
 
 export const StyledProgressBar = styled(ProgressBar)`
@@ -41,6 +38,7 @@ export const SkillsGrid = styled.div`
   }
 
   @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 0.6rem;
   }
 `
