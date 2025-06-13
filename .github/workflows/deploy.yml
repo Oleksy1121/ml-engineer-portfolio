@@ -25,7 +25,13 @@ jobs:
 
     - name: Docker build
       run: |
-        docker build -t europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest ./frontend
+        docker build \
+          --build-arg REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} \
+          --build-arg REACT_APP_EMAILJS_SERVICE_ID=${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }} \
+          --build-arg REACT_APP_EMAILJS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }} \
+          --build-arg REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }} \
+          -t europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest ./frontend
+
 
     - name: Configure Docker to use gcloud as a credential helper
       run: gcloud auth configure-docker europe-west4-docker.pkg.dev --quiet
