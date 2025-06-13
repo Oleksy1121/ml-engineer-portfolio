@@ -1,0 +1,36 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ml-portfolio-xyz123
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Docker build
+      run: |
+        docker build -t europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest ./frontend
+
+    - name: Docker push
+      run: |
+        docker push europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy frontend \
+          --image=europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest \
+          --region=europe-west4 \
+          --platform=managed \
+          --allow-unauthenticated
