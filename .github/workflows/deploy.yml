@@ -17,13 +17,12 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-
     - name: Set up gcloud
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: ml-portfolio-xyz123
 
-    - name: Docker build
+    - name: Docker build (frontend)
       run: |
         docker build \
           --build-arg REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }} \
@@ -32,18 +31,34 @@ jobs:
           --build-arg REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }} \
           -t europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest ./frontend
 
-
     - name: Configure Docker to use gcloud as a credential helper
       run: gcloud auth configure-docker europe-west4-docker.pkg.dev --quiet
 
-    - name: Docker push
+    - name: Docker push (frontend)
       run: |
         docker push europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest
         
-    - name: Deploy to Cloud Run
+    - name: Deploy frontend to Cloud Run
       run: |
         gcloud run deploy frontend \
           --image=europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/frontend:latest \
+          --region=europe-west4 \
+          --platform=managed \
+          --allow-unauthenticated
+
+
+    - name: Docker build (backend)
+      run: |
+        docker build -t europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/backend:latest ./backend
+
+    - name: Docker push (backend)
+      run: |
+        docker push europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/backend:latest
+
+    - name: Deploy backend to Cloud Run
+      run: |
+        gcloud run deploy backend \
+          --image=europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/backend:latest \
           --region=europe-west4 \
           --platform=managed \
           --allow-unauthenticated
