@@ -12,7 +12,10 @@ services:
     build:
       context: ./frontend
       args:
-        REACT_APP_API_URL: https://backend-202366413188.europe-central2.run.app
+        REACT_APP_API_URL: $REACT_APP_API_URL
+        REACT_APP_EMAILJS_SERVICE_ID: ${REACT_APP_EMAILJS_SERVICE_ID}
+        REACT_APP_EMAILJS_TEMPLATE_ID: ${REACT_APP_EMAILJS_TEMPLATE_ID}
+        REACT_APP_EMAILJS_PUBLIC_KEY: ${REACT_APP_EMAILJS_PUBLIC_KEY}
     container_name: frontend
     ports:
       - "3000:80"
