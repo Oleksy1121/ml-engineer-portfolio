@@ -21,11 +21,13 @@ const Canvas = forwardRef((props, ref) => {
 
     useEffect(() => {
         const canvas = canvasElementRef.current
-        const displayWidth = canvas.clientWidth
-        const displayHeight = canvas.clientHeight
 
-        canvas.width = displayWidth
-        canvas.height = displayHeight
+        const preventDefault = (e) => e.preventDefault()
+        canvas.addEventListener("touchstart", preventDefault, { passive: false })
+        canvas.addEventListener("touchmove", preventDefault, { passive: false })
+
+        canvas.width = 600;
+        canvas.height = 600;
 
         const context = canvas.getContext("2d")
         context.lineCap = "round"
@@ -35,12 +37,34 @@ const Canvas = forwardRef((props, ref) => {
 
         clearCanvas()
         emptyCanvasBase64.current = getImageAsBase64()
+
+        return () => {
+            canvas.removeEventListener("touchstart", preventDefault)
+            canvas.removeEventListener("touchmove", preventDefault)
+        }
     }, [])
 
-    const startDrawing = ({ nativeEvent }) => {
-        const { offsetX, offsetY } = nativeEvent
+    const getScaledCoordinates = (event) => {
+        const canvas = canvasElementRef.current;
+        const rect = canvas.getBoundingClientRect();
+
+        const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+        const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        return {
+            x: (clientX - rect.left) * scaleX,
+            y: (clientY - rect.top) * scaleY,
+        };
+    };
+
+
+    const startDrawing = (e) => {
+        const { x, y } = getScaledCoordinates(e.nativeEvent)
         contextRef.current.beginPath()
-        contextRef.current.moveTo(offsetX, offsetY)
+        contextRef.current.moveTo(x, y)
         setIsDrawing(true)
     }
 
@@ -49,11 +73,11 @@ const Canvas = forwardRef((props, ref) => {
         setIsDrawing(false)
     }
 
-    const draw = ({ nativeEvent }) => {
-        if (!isDrawing) return null
+    const draw = (e) => {
+        if (!isDrawing) return
 
-        const { offsetX, offsetY } = nativeEvent
-        contextRef.current.lineTo(offsetX, offsetY)
+        const { x, y } = getScaledCoordinates(e.nativeEvent)
+        contextRef.current.lineTo(x, y)
         contextRef.current.stroke()
     }
 
@@ -92,6 +116,10 @@ const Canvas = forwardRef((props, ref) => {
             onMouseUp={finishDrawing}
             onMouseMove={draw}
             onMouseLeave={handleMouseLeave}
+            onTouchStart={startDrawing}
+            onTouchEnd={finishDrawing}
+            onTouchMove={draw}
+            onTouchCancel={handleMouseLeave}
             ref={canvasElementRef}
         ></CanvasContainer>
     )

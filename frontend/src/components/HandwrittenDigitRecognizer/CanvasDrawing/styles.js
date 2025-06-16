@@ -10,6 +10,11 @@ export const CanvasContainer = styled.canvas`
     border-radius: 12px;
     cursor: crosshair;
 
-    width: 600px;
-    height: 600px;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+
+    @media (max-width: 720px) {
+        max-width: 70vw; 
+    }
 `;
