@@ -1,22 +1,77 @@
-# ML Learning Portfolio
+# ML Engineer Portfolio
 
-This repository is a collection of machine learning demo projects, currently under development. The goal is to showcase practical ML applications with interactive demos.
+A portfolio website for a Machine Learning Engineer, showcasing projects, skills, and professional experience. The application is built with React (frontend) and Python FastAPI (backend).
 
-## Projects
+## Demo
 
-- **Handwritten Digits Recognizer**  
-  An interactive demo that lets you draw digits on a canvas and predicts the digit using a trained ML model.
+Check out the live portfolio: [https://marcin-oleszczyk.pl](https://marcin-oleszczyk.pl)
 
-- **Hand Gesture Recognition**  
-  A project to recognize hand gestures using machine learning techniques.
+## Table of Contents
 
-## Status
+- [ML Engineer Portfolio](#ml-engineer-portfolio)
+  - [Demo](#demo)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Features](#features)
+  - [Technologies](#technologies)
+  - [Local Setup](#local-setup)
+  - [Project Structure](#project-structure)
+  - [Deployment](#deployment)
+  - [Contact](#contact)
 
-🚧 This project is under active development. More features and demos will be added soon!
+## About
 
-## Getting Started
+This application presents:
+- AI/ML projects (e.g., handwritten digit recognition)
+- Technical skills with visual proficiency levels
+- Information about experience and education
+- A contact form with email support
 
-Instructions for running the demos will be provided as the projects progress.
+## Features
+
+- **Responsive design** – works on desktop and mobile devices
+- **Handwritten digit recognition** – interactive canvas component
+- **Skills visualization** – progress bars and categories
+- **Contact form** – email sending via EmailJS
+- **GitHub integration** – quick access to project source code
+
+## Technologies
+
+- **Frontend:** React, styled-components, React Bootstrap, EmailJS, React Router
+- **Backend:** Python, FastAPI
+
+## Local Setup
+
+You can run the application using Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+- The frontend will be available at [http://localhost:3000](http://localhost:3000)
+- The backend will be available at [http://localhost:8000](http://localhost:8000)
+
+## Project Structure
+
+```
+ml-engineer-portfolio/
+│
+├── backend/         # FastAPI backend (models, API, predictions)
+├── frontend/        # React frontend (components, styles)
+├── docker-compose.yml
+└── README.md
+```
+
+## Deployment
+
+The application is deployed on Google Cloud Platform and available at:  
+[https://marcin-oleszczyk.pl](https://marcin-oleszczyk.pl)
+
+## Contact
+
+- Email: oleszczyk.dev@gmail.com
+- LinkedIn: [Marcin Oleszczyk](https://www.linkedin.com/in/marcin-o-2aaa75208/)
 
 ---
-Feel free to explore and contribute!
+
+© 2025 Marcin Oleszczyk. All rights reserved.
