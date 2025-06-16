@@ -50,7 +50,7 @@ function Contact() {
             <FaPhone /> <span>607 105 661</span>
           </div>
           <div>
-            <FaEnvelope /> <a href="mailto:m.oleszczyk@o2.pl">m.oleszczyk@o2.pl</a>
+            <FaEnvelope /> <a href="mailto:oleszczyk.dev@gmail.com">oleszczyk.dev@gmail.com</a>
           </div>
           <div>
             <FaGithub />{" "}

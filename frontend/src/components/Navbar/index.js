@@ -33,7 +33,7 @@ function TopNavbar() {
           </Nav>
 
           <div className="d-flex align-items-center gap-3">
-            <SocialIconLink href="mailto:m.oleszczyk@o2.pl" target="_blank" rel="noopener noreferrer">
+            <SocialIconLink href="mailto:oleszczyk.dev@gmail.com" target="_blank" rel="noopener noreferrer">
               <FaEnvelope size={22} />
             </SocialIconLink>
             <SocialIconLink href="https://www.linkedin.com/in/marcin-o-2aaa75208/" target="_blank" rel="noopener noreferrer">

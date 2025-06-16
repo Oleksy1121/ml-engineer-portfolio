@@ -9,7 +9,7 @@ function Footer() {
       <Container>
         <Row className="justify-content-center mb-3">
           <Col xs="auto">
-            <IconLink href="m.oleszczyk@o2.pl">
+            <IconLink href="mailto:oleszczyk.dev@gmail.com">
               <FaEnvelope />
             </IconLink>          
             <IconLink href="https://www.linkedin.com/in/marcin-o-2aaa75208/" target="_blank" rel="noopener noreferrer">
@@ -23,7 +23,7 @@ function Footer() {
         <Row className="justify-content-center">
           <Col xs="auto">
             <Copyright>
-              © {new Date().getFullYear()} Marcin Oleksy. All rights reserved.
+              © {new Date().getFullYear()} Marcin Olekszczyk. All rights reserved.
             </Copyright>
           </Col>
         </Row>
