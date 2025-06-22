@@ -119,7 +119,7 @@ class DigitPredictService:
         """
 
         img = self.preprocessing_image(base64_string)
-        tensor = binary_transform_28x28(img).unsqueeze(dim=0)
+        tensor = simple_transform(img).unsqueeze(dim=0)
 
         with torch.no_grad():
             pred_probs = torch.softmax(self.model(tensor), dim=1)
