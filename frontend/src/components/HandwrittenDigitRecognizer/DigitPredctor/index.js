@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react"
+import { FaGithub } from "react-icons/fa"
 import {
     Button,
     ButtonContainer,
+    CallToActionLink,
+    ContentWrapper,
     DigitPredictiorContainer,
     Header,
     MainContainer,
@@ -45,19 +48,33 @@ function DigitPredictor() {
         }
     }
 
-    return (
-        <MainContainer className="app-card">
-            <DigitPredictiorContainer>
-                <Header>Draw your own digit !</Header>
-                <Canvas ref={canvasRef}></Canvas>
-                <ButtonContainer>
-                    <Button onClick={handleClearCanvas}>Clear</Button>
-                    <Button onClick={getPrediction}>Predict</Button>
-                </ButtonContainer>
-            </DigitPredictiorContainer>
-            <Results results={results}></Results>
-        </MainContainer>
-    )
+return (
+  <MainContainer className="app-card">
+    <ContentWrapper>
+      <DigitPredictiorContainer>
+        <Header>Draw your own digit !</Header>
+        <Canvas ref={canvasRef}></Canvas>
+        <ButtonContainer>
+          <Button onClick={handleClearCanvas}>Clear</Button>
+          <Button onClick={getPrediction}>Predict</Button>
+        </ButtonContainer>
+      </DigitPredictiorContainer>
+      
+      <Results results={results}></Results>
+    </ContentWrapper>
+
+    <CallToActionLink
+      href="https://github.com/Oleksy1121/Handwritten-digit-recognizer"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <FaGithub size={24} />
+      <span>Check this project on GitHub</span>
+    </CallToActionLink>
+  </MainContainer>
+)
+
+
 }
 
 export default DigitPredictor
