@@ -38,7 +38,7 @@ export const FormInput = styled.input`
   &:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    box-shadow: var(--color-shadow-light);
   }
 `;
 
@@ -46,19 +46,29 @@ export const FormButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   padding: 12px 20px;
-  background-color: var(--color-accent);
+  background-color: var(--color-orange);
   color: var(--color-bg);
-  border: 1px solid var(--color-accent);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
   &:hover {
     background-color: transparent;
-    color: var(--color-accent);
+    color: var(--color-orange);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px var(--color-shadow-medium);
   }
+  
+  &.clear-button {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+
+  &:hover {
+    background-color: transparent;
+    color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--color-shadow-medium);
+  }}
 `;
 
 export const SummaryBox = styled.div`
@@ -80,6 +90,21 @@ export const SummaryBox = styled.div`
   ul {
     margin-left: 20px;
     list-style: disc;
+  }
+`;
+
+export const Spinner = styled.div`
+  border: 8px solid var(--color-border-light);
+  border-top: 8px solid var(--color-accent);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 `;
 

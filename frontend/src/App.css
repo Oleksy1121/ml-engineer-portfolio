@@ -10,6 +10,7 @@
     --color-shadow-light: rgba(0, 0, 0, 0.08);
     --color-shadow-medium: rgba(0, 0, 0, 0.15);
     --color-light-gray: #aaaaaa;
+    --color-orange: #f97316;
 
     --font-primary: "Roboto", sans-serif;
     --font-secondary: "Open Sans", sans-serif;
@@ -31,6 +32,7 @@ body.dark-theme {
     --color-shadow-light: rgba(0, 0, 0, 0.3);
     --color-shadow-medium: rgba(0, 0, 0, 0.45);
     --color-light-gray: #777777;
+    --color-orange: #fb923c;
 }
 
 body {
