@@ -35,7 +35,13 @@ function VideoSummarizer() {
     setShowSummaryBox(true);
     setIsProcessing(true);
 
-    wsRef.current = new WebSocket("ws://localhost:8000/ws/summarize");
+    const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/";
+    const normalized = apiBase.replace(/\/+$/, "");
+    const wsProtocol = normalized.startsWith("https://") ? "wss" : "ws";
+    const host = normalized.replace(/^https?:\/\//, "");
+    const wsUrl = `${wsProtocol}://${host}/ws/summarize`;
+    wsRef.current = new WebSocket(wsUrl);
+
 
     wsRef.current.onopen = () => {
       wsRef.current.send(url);
