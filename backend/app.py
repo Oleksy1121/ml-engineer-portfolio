@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from predict.service import DigitPredictService
+from summarize.service import summarize_service
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -32,6 +33,9 @@ except FileNotFoundError as e:
 class PredictRequest(BaseModel):
     base64_string: str
 
+class VideoURL(BaseModel):
+    url: str
+
 
 @app.post("/predict")
 async def handle_predict_request(request_body: PredictRequest):
@@ -47,3 +51,9 @@ async def handle_predict_request(request_body: PredictRequest):
 
     prediction_data = predictor_service.predict(base64_string)
     return {"predict": prediction_data}
+
+
+@app.post('/summarize')
+def summarize_video(video: VideoURL):
+    summarize = summarize_service(video.url)
+    return {"summary": summarize}

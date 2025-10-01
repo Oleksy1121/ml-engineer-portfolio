@@ -1,6 +1,6 @@
 import torch
-from scripts.model_builder import TinyVGG
-from scripts.image_transforms import *
+from scripts.handwritten_digit_predictor.model_builder import TinyVGG
+from scripts.handwritten_digit_predictor.image_transforms import *
 from PIL import Image
 import base64
 import io
