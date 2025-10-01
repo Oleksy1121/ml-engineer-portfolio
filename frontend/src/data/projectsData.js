@@ -1,9 +1,42 @@
 import handwrittenDigitThumbnail from '../assets/handwritten-digit-thumbnail.jpg'
 import snakeAIThumbnail from '../assets/snake-ai-thumbnail.jpg'
+import videoSummarizerThumbnail from '../assets/video-summarizer-thumbnail.jpg'
 
 const projectsData = [
     {
         id: 1,
+        title: "Video Summarizer",
+        description: `
+            <p>An application that automatically summarizes videos from URL into structured <strong>Markdown</strong> notes. Built with modular architecture, the project explores both open-source and commercial LLMs:</p>
+            <ul>
+                <li><strong>Transcription:</strong> Extracting audio with <code>yt-dlp</code> and transcribing using <strong>OpenAI Whisper</strong>.</li>
+                <li><strong>Summarization:</strong> Generating structured summaries with <strong>GPT-4o-mini</strong>.</li>
+                <li><strong>Prototypes:</strong> Two versions tested:
+                    <ul>
+                        <li>Colab notebook: <strong>LLaMA 3.1 (quantized)</strong> + Whisper</li>
+                        <li>Jupyter notebook: <strong>OpenAI Whisper + GPT</strong> with Gradio UI</li>
+                    </ul>
+                </li>
+                <li><strong>API:</strong> Final version designed as a <strong>FastAPI</strong> service for easy integration.</li>
+            </ul>
+            <p>The project demonstrates practical use of speech-to-text pipelines, LLM summarization, and lightweight user interfaces with <strong>Gradio</strong>.</p>
+        `,
+        skills: [
+            "Python",
+            "FastAPI",
+            "OpenAI API",
+            "Whisper",
+            "GPT-4o-mini",
+            "yt-dlp",
+            "Gradio",
+            "Google Colab"
+        ],
+        githubLink: "https://github.com/Oleksy1121/video-summarizer", 
+        thumbnail: videoSummarizerThumbnail,
+        linkToDemo: '/video-summarizer',
+    },
+    {
+        id: 2,
         title: "SnakeAI – Reinforcement Learning Agent",
         description: `
             <p>This project implements a reinforcement learning agent that learns to play the classic Snake game using <strong>Stable-Baselines3</strong>. Key aspects include:</p>
@@ -28,7 +61,7 @@ const projectsData = [
         linkToDemo: '/snake-ai',
     },
     {
-        id: 2,
+        id: 3,
         title: "Handwritten Digit Recognizer",
         description: `
             <p>This project presents a handwritten digit recognition system based on deep learning techniques using the MNIST dataset. Key aspects include:</p>

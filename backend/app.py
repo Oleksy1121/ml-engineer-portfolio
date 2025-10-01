@@ -1,10 +1,20 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, WebSocket, Request, WebSocketDisconnect
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from pydantic import BaseModel
 from predict.service import DigitPredictService
+from summarize.service import summarize_service
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from datetime import datetime, timedelta
 
+MODEL_PATH = "models/best.pt"
+DAILY_LIMIT_FOR_SUMMARIZE = 30
 
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
+app.state.limiter = limiter
 
 origins = [
     "https://frontend-202366413188.europe-west4.run.app",
@@ -20,7 +30,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL_PATH = "models/best.pt"
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "Too many requests. Limit is 30 per day."},
+    )
 
 try:
     predictor_service = DigitPredictService(MODEL_PATH)
@@ -32,9 +48,13 @@ except FileNotFoundError as e:
 class PredictRequest(BaseModel):
     base64_string: str
 
+class VideoURL(BaseModel):
+    url: str
+
 
 @app.post("/predict")
-async def handle_predict_request(request_body: PredictRequest):
+@limiter.limit("30/minute")
+async def handle_predict_request(request: Request, request_body: PredictRequest):
 
     base64_string = request_body.base64_string
     if ',' in base64_string:
@@ -47,3 +67,49 @@ async def handle_predict_request(request_body: PredictRequest):
 
     prediction_data = predictor_service.predict(base64_string)
     return {"predict": prediction_data}
+
+
+
+ws_request_counts = {}
+def check_ws_limit(ip: str) -> bool:
+    """Sprawdza, czy klient nie przekroczył limitu 30 zapytań na dobę."""
+    now = datetime.utcnow()
+    count, first_request = ws_request_counts.get(ip, (0, now))
+
+    if now - first_request > timedelta(days=1):
+        count = 0
+        first_request = now
+
+    if count >= DAILY_LIMIT_FOR_SUMMARIZE:
+        return False
+
+    ws_request_counts[ip] = (count + 1, first_request)
+    return True
+
+
+@app.websocket("/ws/summarize")
+async def websocket_summarize(websocket: WebSocket):
+    client_ip = websocket.client.host
+
+    if not check_ws_limit(client_ip):
+        await websocket.accept()
+        await websocket.send_text("ERROR: Daily limit reached (30 requests/day).")
+        await websocket.close()
+        return
+
+    await websocket.accept()
+    try:
+        url = await websocket.receive_text()
+
+        async def send_status(message: str):
+            await websocket.send_text(message)
+
+        try:
+            summary = await summarize_service(url, send_status)
+            await websocket.send_text(f"SUMMARY:{summary}")
+        except ValueError as e:
+            await websocket.send_text(f"ERROR:{str(e)}")
+            await websocket.close()
+
+    except WebSocketDisconnect:
+        print("Client has been disconected")
