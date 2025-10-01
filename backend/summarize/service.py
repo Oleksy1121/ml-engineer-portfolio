@@ -14,8 +14,15 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 openai = OpenAI(api_key=openai_api_key)
 
 
-def summarize_service(url: str):
+async def summarize_service(url: str, send_status):
+    await send_status("Downloading audio...")
     download_audio(url)
+
+    await send_status("Generate Transcription from audio file...")
     transcription = get_transcription(openai=openai)
-    summarize = get_summarize(openai=openai, transcription=transcription)
-    return summarize
+
+    await send_status("Generatng Summarize...")
+    summary = get_summarize(openai=openai, transcription=transcription)
+
+    await send_status("Finished!")
+    return summary

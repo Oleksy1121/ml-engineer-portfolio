@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from predict.service import DigitPredictService
 from summarize.service import summarize_service
@@ -53,7 +53,17 @@ async def handle_predict_request(request_body: PredictRequest):
     return {"predict": prediction_data}
 
 
-@app.post('/summarize')
-def summarize_video(video: VideoURL):
-    summarize = summarize_service(video.url)
-    return {"summary": summarize}
+@app.websocket("/ws/summarize")
+async def websocket_summarize(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        url = await websocket.receive_text()
+
+        async def send_status(message: str):
+            await websocket.send_text(message)
+
+        summary = await summarize_service(url, send_status)
+        await websocket.send_text(f"SUMMARY:{summary}")
+
+    except WebSocketDisconnect:
+        print("Client has been disconected")

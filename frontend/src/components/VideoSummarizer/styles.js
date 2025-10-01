@@ -64,10 +64,9 @@ export const FormButton = styled.button`
 export const SummaryBox = styled.div`
   text-align: left;
   padding: 20px;
-  border-radius: 8px;
   background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border-light);
-  min-height: 200px;
+  border-top: 2px solid var(--color-border-light);
+  min-height: 100px;
 
   p {
     color: var(--color-secondary-text);
@@ -83,3 +82,33 @@ export const SummaryBox = styled.div`
     list-style: disc;
   }
 `;
+
+export const CallToActionLink = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  margin-bottom: 40px;
+  margin-top: 40px;
+
+  &:hover {
+    background-color: transparent;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  svg {
+    margin-right: 10px;
+  }
+`

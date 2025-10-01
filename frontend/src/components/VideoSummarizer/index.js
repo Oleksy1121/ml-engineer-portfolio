@@ -1,5 +1,6 @@
-import React, { useState } from "react"
-import ReactMarkdown from "react-markdown"
+import React, { useState } from "react";
+import { FaGithub } from "react-icons/fa";
+import ReactMarkdown from "react-markdown";
 import {
   SummarizerContainer,
   SummarizerCard,
@@ -7,31 +8,48 @@ import {
   FormInput,
   FormButton,
   SummaryBox,
-} from "./styles"
+  CallToActionLink,
+} from "./styles";
 
 function VideoSummarizer() {
-  const [url, setUrl] = useState("")
-  const [summary, setSummary] = useState("")
+  const [url, setUrl] = useState("");
+  const [summary, setSummary] = useState("");
+  const [status, setStatus] = useState("");
 
-  const handleSummarize = async () => {
-    if (!url) return alert("Please enter a video URL")
+  const handleSummarize = () => {
+    if (!url) return alert("Please enter a video URL");
 
-    try {
-      // Call your FastAPI backend here
-      const res = await fetch("http://localhost:8000/summarize", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url }),
-      })
-      const data = await res.json()
-      setSummary(data.summary)
-    } catch (err) {
-      console.error(err)
-      alert("Something went wrong while summarizing")
-    }
-  }
+    setSummary("");
+    setStatus("Connecting to server...");
+
+    const ws = new WebSocket("ws://localhost:8000/ws/summarize");
+
+    ws.onopen = () => {
+      ws.send(url);
+      setStatus("Connected. Processing...");
+    };
+
+    ws.onmessage = (event) => {
+      const msg = event.data;
+      if (msg.startsWith("SUMMARY:")) {
+        const summaryText = msg.replace("SUMMARY:", "");
+        setSummary(summaryText);
+        setStatus("Finished!");
+        ws.close();
+      } else {
+        setStatus(msg); // aktualny status np. "Downloading audio..."
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+      setStatus("Error occurred");
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+  };
 
   return (
     <SummarizerContainer id="video-summarizer">
@@ -48,11 +66,17 @@ function VideoSummarizer() {
         </InputGroup>
 
         <SummaryBox>
+          {status && <p><strong>Status:</strong> {status}</p>}
           {summary ? <ReactMarkdown>{summary}</ReactMarkdown> : <p>No summary yet.</p>}
         </SummaryBox>
       </SummarizerCard>
+
+      <CallToActionLink href="https://github.com/Oleksy1121/video-summarizer" target="_blank" rel="noopener noreferrer">
+        <FaGithub size={24} />
+        <span>Check this project on GitHub</span>
+      </CallToActionLink>
     </SummarizerContainer>
-  )
+  );
 }
 
-export default VideoSummarizer
+export default VideoSummarizer;
