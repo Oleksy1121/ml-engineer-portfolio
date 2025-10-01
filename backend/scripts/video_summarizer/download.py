@@ -13,6 +13,8 @@ def download_audio(url: str, audio_filename: str = AUDIO_FILENAME) -> None:
     Returns:
         None
     """
+    os.makedirs(os.path.dirname(audio_filename), exist_ok=True)
+
     if os.path.exists(audio_filename):
         os.remove(audio_filename)
         # print("Old audio file has been deleted.")

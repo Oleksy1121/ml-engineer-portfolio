@@ -61,4 +61,6 @@ jobs:
           --image=europe-west4-docker.pkg.dev/ml-portfolio-xyz123/ml-portfolio-app/backend:latest \
           --region=europe-west4 \
           --platform=managed \
-          --allow-unauthenticated
+          --allow-unauthenticated \
+          --set-env-vars OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+

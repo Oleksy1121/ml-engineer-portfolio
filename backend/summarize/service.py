@@ -11,7 +11,7 @@ from scripts.video_summarizer.summarizer import get_summarize
 
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
-openai = OpenAI()
+openai = OpenAI(api_key=openai_api_key)
 
 
 def summarize_service(url: str):

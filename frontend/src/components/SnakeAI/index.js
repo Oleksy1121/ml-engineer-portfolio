@@ -35,7 +35,7 @@ function SnakeAI() {
           custom environment, training process, and a live demonstration of the agent playing Snake.
         </p>
         <video controls>
-          <source src="https://storage.googleapis.com/snake-ai-assets-oleksy1121/snakeAI-video.mp4" type="video/mp4" />
+          <source src="https://storage.cloud.google.com/snake-ai-assets-oleksy1121/snakeAI-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </VideoSection>
