@@ -44,16 +44,30 @@ function VideoSummarizer() {
 
     wsRef.current.onmessage = (event) => {
       const msg = event.data;
+
+      if (msg.startsWith("ERROR:")) {
+        const errorMsg = msg.replace("ERROR:", "").trim();
+        alert(errorMsg);
+        setStatus("");
+        setSummary("");
+        setShowSummaryBox(false);
+        setIsProcessing(false);
+        wsRef.current.close();
+        return;
+      }
+
       if (msg.startsWith("SUMMARY:")) {
         const summaryText = msg.replace("SUMMARY:", "");
         setSummary(summaryText);
         setStatus("Finished!");
         setIsProcessing(false);
         wsRef.current.close();
-      } else {
-        setStatus(msg);
+        return;
       }
+
+      setStatus(msg);
     };
+
 
     wsRef.current.onerror = (err) => {
       console.error("WebSocket error:", err);

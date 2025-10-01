@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from scripts.video_summarizer.download import download_audio
+from scripts.video_summarizer.download import download_audio, get_video_info, validate_video
 from scripts.video_summarizer.transcribe import get_transcription
 from scripts.video_summarizer.summarizer import get_summarize
 
@@ -15,6 +15,13 @@ openai = OpenAI(api_key=openai_api_key)
 
 
 async def summarize_service(url: str, send_status):
+    await send_status("Validating URL...")
+
+    is_valid, result = validate_video(url)
+    if not is_valid:
+        await send_status(result)
+        raise ValueError(result)
+
     await send_status("Downloading audio...")
     download_audio(url)
 
