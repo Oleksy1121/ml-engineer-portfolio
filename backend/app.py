@@ -119,11 +119,11 @@ async def startup_event():
 
 @app.websocket("/ws/summarize")
 async def websocket_summarize(websocket: WebSocket):
+    await websocket.accept()
 
     # API Authorization
     token = websocket.query_params.get("token")
     if token not in ws_tokens or ws_tokens[token] < datetime.utcnow():
-        await websocket.accept()
         await websocket.send_text("ERROR: Unauthorized. Invalid API key.")
         await websocket.close()
         return
@@ -133,16 +133,13 @@ async def websocket_summarize(websocket: WebSocket):
     # Limitations
     client_ip = websocket.client.host
     if not check_ws_limit(client_ip):
-        await websocket.accept()
         await websocket.send_text("ERROR: Daily limit reached (30 requests/day).")
         await websocket.close()
         return
 
 
-    await websocket.accept()
     try:
         url = await websocket.receive_text()
-
         async def send_status(message: str):
             await websocket.send_text(f"STATUS:{message}")
 
@@ -151,6 +148,7 @@ async def websocket_summarize(websocket: WebSocket):
             await websocket.send_text(f"SUMMARY:{summary}")
         except ValueError as e:
             await websocket.send_text(f"ERROR:{str(e)}")
+        finally:
             await websocket.close()
 
     except WebSocketDisconnect:

@@ -1,5 +1,4 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+import asyncio
 import os
 import glob
 from dotenv import load_dotenv
@@ -17,22 +16,23 @@ openai = OpenAI(api_key=openai_api_key)
 
 
 async def summarize_service(url: str, send_status):
+    loop = asyncio.get_running_loop()
     await send_status("Validating URL...")
 
-    is_valid, result = validate_video(url)
+    is_valid, result = await loop.run_in_executor(None, validate_video, url)
     if not is_valid:
         await send_status(result)
         raise ValueError(result)
 
     try:
         await send_status("Downloading audio...")
-        download_audio(url)
+        await loop.run_in_executor(None, download_audio, url)
 
         await send_status("Generate Transcription from audio file...")
-        transcription = get_transcription(openai=openai)
+        transcription = await loop.run_in_executor(None, lambda: get_transcription(openai=openai))
 
         await send_status("Generatng Summarize...")
-        summary = get_summarize(openai=openai, transcription=transcription)
+        summary = await loop.run_in_executor(None, lambda: get_summarize(openai=openai, transcription=transcription))
     
     finally:
         audio_folder = os.path.dirname(AUDIO_FILENAME)
