@@ -62,5 +62,5 @@ jobs:
           --region=europe-west4 \
           --platform=managed \
           --allow-unauthenticated \
-          --set-env-vars OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+          --set-env-vars OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}, VS_API_KEY=${{ secrets.VS_API_KEY }}
 

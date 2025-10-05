@@ -20,40 +20,29 @@ function VideoSummarizer() {
   const [isProcessing, setIsProcessing] = useState(false);
   const wsRef = useRef(null);
 
-  const handleSummarize = () => {
-    if (!url) return alert("Please enter a video URL");
-
-    const urlPattern = /^(https?:\/\/[^\s]+)$/;
-    if (!urlPattern.test(url)) {
-      return alert("Please enter a valid URL starting with http:// or https://");
-    }
-
-    if (isProcessing) return; 
-
+  const handleSummarize = async () => {
     setSummary("");
-    setStatus("Connecting to server...");
-    setShowSummaryBox(true);
-    setIsProcessing(true);
+  setStatus("Connecting to server...");
+  setShowSummaryBox(true);
+  setIsProcessing(true);
 
-    const apiBase = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000/";
-    const normalized = apiBase.replace(/\/+$/, "");
-    const wsProtocol = normalized.startsWith("https://") ? "wss" : "ws";
-    const host = normalized.replace(/^https?:\/\//, "");
-    const wsUrl = `${wsProtocol}://${host}/ws/summarize`;
+  try {
+    const tokenRes = await fetch(`${process.env.REACT_APP_API_URL}/get_ws_token`);
+    const { token } = await tokenRes.json();
+
+    const wsProtocol = process.env.REACT_APP_API_URL.startsWith("https") ? "wss" : "ws";
+    const host = process.env.REACT_APP_API_URL.replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    const wsUrl = `${wsProtocol}://${host}/ws/summarize?token=${token}`;
+
     wsRef.current = new WebSocket(wsUrl);
 
-
-    wsRef.current.onopen = () => {
-      wsRef.current.send(url);
-      setStatus("Connected. Processing...");
-    };
+    wsRef.current.onopen = () => wsRef.current.send(url);
 
     wsRef.current.onmessage = (event) => {
       const msg = event.data;
 
       if (msg.startsWith("ERROR:")) {
-        const errorMsg = msg.replace("ERROR:", "").trim();
-        alert(errorMsg);
+        alert(msg.replace("ERROR:", "").trim());
         setStatus("");
         setSummary("");
         setShowSummaryBox(false);
@@ -62,9 +51,13 @@ function VideoSummarizer() {
         return;
       }
 
+      if (msg.startsWith("STATUS:")) {
+        setStatus(msg.replace("STATUS:", "").trim());
+        return;
+      }
+
       if (msg.startsWith("SUMMARY:")) {
-        const summaryText = msg.replace("SUMMARY:", "");
-        setSummary(summaryText);
+        setSummary(msg.replace("SUMMARY:", ""));
         setStatus("Finished!");
         setIsProcessing(false);
         wsRef.current.close();
@@ -73,7 +66,6 @@ function VideoSummarizer() {
 
       setStatus(msg);
     };
-
 
     wsRef.current.onerror = (err) => {
       console.error("WebSocket error:", err);
@@ -85,6 +77,11 @@ function VideoSummarizer() {
       console.log("WebSocket connection closed");
       setIsProcessing(false);
     };
+  } catch (err) {
+      console.error(err);
+      alert("Failed to connect to server");
+      setIsProcessing(false);
+    }
   };
 
   const handleClear = () => {

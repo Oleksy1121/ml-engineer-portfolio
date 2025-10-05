@@ -30,11 +30,11 @@ def get_video_info(url: str):
             ["yt-dlp","--cookies", cookies_path, "--skip-download", "--print-json", "-f", "bestaudio", url],
             capture_output=True,
             text=True,
-            check=False  # zmienione na False, żebyśmy mogli zobaczyć stdout/stderr nawet przy błędzie
+            check=False 
         )
 
         logging.info(f"[get_video_info] yt-dlp returncode: {result.returncode}")
-        logging.info(f"[get_video_info] yt-dlp stdout: {result.stdout[:500]}")  # ograniczamy do 500 znaków
+        logging.info(f"[get_video_info] yt-dlp stdout: {result.stdout[:500]}") 
         logging.info(f"[get_video_info] yt-dlp stderr: {result.stderr}")
 
         if result.returncode != 0 or not result.stdout.strip():

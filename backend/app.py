@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException, WebSocket, Request, WebSocketDisconnect
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -8,13 +9,22 @@ from summarize.service import summarize_service
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from datetime import datetime, timedelta
-
-MODEL_PATH = "models/best.pt"
-DAILY_LIMIT_FOR_SUMMARIZE = 30
+import secrets
+import asyncio
 
 limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
 app.state.limiter = limiter
+
+
+MODEL_PATH = "models/best.pt"
+
+VS_API_KEY = os.getenv("VS_API_KEY")
+ws_tokens = {}
+
+DAILY_LIMIT_FOR_SUMMARIZE = 30
+ws_request_counts = {}
+
 
 origins = [
     "https://frontend-202366413188.europe-west4.run.app",
@@ -69,10 +79,8 @@ async def handle_predict_request(request: Request, request_body: PredictRequest)
     return {"predict": prediction_data}
 
 
-
-ws_request_counts = {}
 def check_ws_limit(ip: str) -> bool:
-    """Sprawdza, czy klient nie przekroczył limitu 30 zapytań na dobę."""
+    """Checks if the client has exceeded the 30 requests per day limit."""
     now = datetime.utcnow()
     count, first_request = ws_request_counts.get(ip, (0, now))
 
@@ -82,27 +90,61 @@ def check_ws_limit(ip: str) -> bool:
 
     if count >= DAILY_LIMIT_FOR_SUMMARIZE:
         return False
-
+    
     ws_request_counts[ip] = (count + 1, first_request)
     return True
 
 
+@app.get("/get_ws_token")
+def get_ws_token():
+    """Generates a short-lived token for WebSocket authorization."""
+    token = secrets.token_urlsafe(16)
+    ws_tokens[token] = datetime.utcnow() + timedelta(minutes=5)
+    return {"token": token}
+
+
+async def cleanup_expired_tokens():
+    while True:
+        now = datetime.utcnow()
+        expired = [token for token, exp in ws_tokens.items() if exp < now]
+        for token in expired:
+            del ws_tokens[token]
+        await asyncio.sleep(300) 
+
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(cleanup_expired_tokens())
+
+
 @app.websocket("/ws/summarize")
 async def websocket_summarize(websocket: WebSocket):
-    client_ip = websocket.client.host
 
+    # API Authorization
+    token = websocket.query_params.get("token")
+    if token not in ws_tokens or ws_tokens[token] < datetime.utcnow():
+        await websocket.accept()
+        await websocket.send_text("ERROR: Unauthorized. Invalid API key.")
+        await websocket.close()
+        return
+    
+    del ws_tokens[token]
+
+    # Limitations
+    client_ip = websocket.client.host
     if not check_ws_limit(client_ip):
         await websocket.accept()
         await websocket.send_text("ERROR: Daily limit reached (30 requests/day).")
         await websocket.close()
         return
 
+
     await websocket.accept()
     try:
         url = await websocket.receive_text()
 
         async def send_status(message: str):
-            await websocket.send_text(message)
+            await websocket.send_text(f"STATUS:{message}")
 
         try:
             summary = await summarize_service(url, send_status)
