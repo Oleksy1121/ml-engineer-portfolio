@@ -2,6 +2,7 @@ import Portfolio from './components/Portfolio';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TechDocs from './components/TechDocs';
 import VideoSummarizer from './components/VideoSummarizer'
 import SnakeAI from './components/SnakeAI';
 import DigitPredictor from './components/HandwrittenDigitRecognizer/DigitPredctor'
@@ -15,6 +16,7 @@ function App() {
     <TopNavbar></TopNavbar>
       <Routes>
         <Route path='/' element={<Portfolio></Portfolio>}></Route>
+        <Route path='/techdocs' element={<TechDocs></TechDocs>}></Route>
         <Route path='/video-summarizer' element={<VideoSummarizer></VideoSummarizer>}></Route>
         <Route path='/snake-ai' element={<SnakeAI></SnakeAI>}></Route>
         <Route path='/handwritten-digit-recognizer' element={<DigitPredictor></DigitPredictor>}></Route>
