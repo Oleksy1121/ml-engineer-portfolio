@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 import {
@@ -18,76 +18,52 @@ function VideoSummarizer() {
   const [status, setStatus] = useState("");
   const [showSummaryBox, setShowSummaryBox] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const wsRef = useRef(null);
 
   const handleSummarize = async () => {
+    if (!url.trim()) {
+      alert("Please enter a valid YouTube URL");
+      return;
+    }
+
     setSummary("");
-  setStatus("Connecting to server...");
-  setShowSummaryBox(true);
-  setIsProcessing(true);
+    setStatus("Validating video...");
+    setShowSummaryBox(true);
+    setIsProcessing(true);
 
-  try {
-    const tokenRes = await fetch(`${process.env.REACT_APP_API_URL}/get_ws_token`);
-    const { token } = await tokenRes.json();
+    try {
+      const response = await fetch(
+        "https://video-summarizer-backend-202366413188.europe-west4.run.app/api/v1/summarize",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: url.trim() }),
+        }
+      );
 
-    const wsProtocol = process.env.REACT_APP_API_URL.startsWith("https") ? "wss" : "ws";
-    const host = process.env.REACT_APP_API_URL.replace(/^https?:\/\//, "").replace(/\/+$/, "");
-    const wsUrl = `${wsProtocol}://${host}/ws/summarize?token=${token}`;
+      const data = await response.json();
 
-    wsRef.current = new WebSocket(wsUrl);
-
-    wsRef.current.onopen = () => wsRef.current.send(url);
-
-    wsRef.current.onmessage = (event) => {
-      const msg = event.data;
-
-      if (msg.startsWith("ERROR:")) {
-        alert(msg.replace("ERROR:", "").trim());
-        setStatus("");
-        setSummary("");
-        setShowSummaryBox(false);
-        setIsProcessing(false);
-        wsRef.current.close();
-        return;
+      if (!response.ok) {
+        // Handle error responses
+        throw new Error(data.detail || "Failed to summarize video");
       }
 
-      if (msg.startsWith("STATUS:")) {
-        setStatus(msg.replace("STATUS:", "").trim());
-        return;
-      }
-
-      if (msg.startsWith("SUMMARY:")) {
-        setSummary(msg.replace("SUMMARY:", ""));
-        setStatus("Finished!");
-        setIsProcessing(false);
-        wsRef.current.close();
-        return;
-      }
-
-      setStatus(msg);
-    };
-
-    wsRef.current.onerror = (err) => {
-      console.error("WebSocket error:", err);
-      setStatus("Error occurred");
+      // Success
+      setSummary(data.summary);
+      setStatus("Finished!");
       setIsProcessing(false);
-    };
-
-    wsRef.current.onclose = () => {
-      console.log("WebSocket connection closed");
-      setIsProcessing(false);
-    };
-  } catch (err) {
-      console.error(err);
-      alert("Failed to connect to server");
+    } catch (err) {
+      console.error("Summarization error:", err);
+      alert(err.message || "Failed to summarize video. Please try again.");
+      setStatus("");
+      setSummary("");
+      setShowSummaryBox(false);
       setIsProcessing(false);
     }
   };
 
   const handleClear = () => {
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      wsRef.current.close();
-    }
     setUrl("");
     setSummary("");
     setStatus("");
@@ -105,28 +81,36 @@ function VideoSummarizer() {
             placeholder="Paste YouTube video link here..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter" && !isProcessing) {
+                handleSummarize();
+              }
+            }}
           />
           <FormButton onClick={handleSummarize} disabled={isProcessing}>
             {isProcessing ? "Processing..." : "Summarize"}
           </FormButton>
-          <FormButton className="clear-button" onClick={handleClear}>
-            {isProcessing ? "Stop" : "Clear"}
+          <FormButton className="clear-button" onClick={handleClear} disabled={isProcessing}>
+            Clear
           </FormButton>
         </InputGroup>
 
-      {showSummaryBox && (
-        <SummaryBox>
-          {isProcessing && (
-            <>
-              <Spinner />
-              <p style={{ textAlign: "center", marginTop: "10px" }}>
-                <strong>Status:</strong> {status}
-              </p>
-            </>
-          )}
-          {summary && <ReactMarkdown>{summary}</ReactMarkdown>}
-        </SummaryBox>
-      )}
+        {showSummaryBox && (
+          <SummaryBox>
+            {isProcessing && (
+              <>
+                <Spinner />
+                <p style={{ textAlign: "center", marginTop: "10px" }}>
+                  <strong>Status:</strong> {status}
+                </p>
+                <p style={{ textAlign: "center", fontSize: "0.9em", color: "#666" }}>
+                  This may take a few minutes...
+                </p>
+              </>
+            )}
+            {summary && <ReactMarkdown>{summary}</ReactMarkdown>}
+          </SummaryBox>
+        )}
       </SummarizerCard>
 
       <CallToActionLink
