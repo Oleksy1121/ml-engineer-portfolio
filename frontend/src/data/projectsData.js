@@ -2,11 +2,44 @@ import handwrittenDigitThumbnail from '../assets/handwritten-digit-thumbnail.jpg
 import snakeAIThumbnail from '../assets/snake-ai-thumbnail.jpg'
 import videoSummarizerThumbnail from '../assets/video-summarizer-thumbnail.jpg'
 import techDocsThumbnail from '../assets/tech-docs-thumbnail.jpg'
+import aiResearchAnalystThumbnail from '../assets/ai-research-analyst-thumbnail.jpg'
+
 
 const projectsData = [
 
     {
         id: 1,
+        title: "AI Research Analyst",
+        description: `
+            <p>An autonomous research agent that conducts multi-stage research on any topic: plans search strategy, gathers information from multiple sources, verifies facts, identifies contradictions, and generates structured reports with citations.</p>
+            <ul>
+                <li><strong>LangGraph Workflow:</strong> Multi-node pipeline with intake, planning, search, analysis, quality gate, synthesis, and report generation.</li>
+                <li><strong>Session RAG:</strong> Sources indexed in <strong>ChromaDB</strong> per session for semantic retrieval and contradiction detection.</li>
+                <li><strong>Quality Loop:</strong> Iterative research expansion until coverage thresholds are met.</li>
+                <li><strong>Human-in-the-Loop:</strong> Plan approval checkpoints for deep dive research.</li>
+                <li><strong>Real-time Streaming:</strong> SSE-based progress updates via <strong>FastAPI</strong> backend.</li>
+            </ul>
+            <p>Demonstrates autonomous agent design with self-correction loops, planning + execution patterns, and production-ready error handling.</p>
+        `,
+        skills: [
+            "Python",
+            "LangGraph",
+            "LangChain",
+            "OpenAI API",
+            "ChromaDB",
+            "FastAPI",
+            "Tavily API",
+            "React",
+            "Docker",
+            "GCP Cloud Run"
+        ],
+        githubLink: "https://github.com/Oleksy1121/ai-research-analyst",
+        thumbnail: aiResearchAnalystThumbnail,
+        linkToDemo: '/ai-research-analyst',
+    },
+
+    {
+        id: 2,
         title: "TechDocs – AI Documentation Assistant",
         description: `
             <p>A RAG-based (Retrieval-Augmented Generation) chatbot that helps developers quickly find answers in technical documentation for <strong>PyTorch</strong> and <strong>FastAPI</strong>. Key aspects include:</p>
@@ -36,7 +69,7 @@ const projectsData = [
     },
 
     {
-        id: 2,
+        id: 3,
         title: "Video Summarizer",
         description: `
             <p>An application that automatically summarizes videos from URL into structured <strong>Markdown</strong> notes. Built with modular architecture, the project explores both open-source and commercial LLMs:</p>
@@ -68,7 +101,7 @@ const projectsData = [
         linkToDemo: '/video-summarizer',
     },
     {
-        id: 3,
+        id: 4,
         title: "SnakeAI – Reinforcement Learning Agent",
         description: `
             <p>This project implements a reinforcement learning agent that learns to play the classic Snake game using <strong>Stable-Baselines3</strong>. Key aspects include:</p>
@@ -92,8 +125,9 @@ const projectsData = [
         thumbnail: snakeAIThumbnail,
         linkToDemo: '/snake-ai',
     },
+
     {
-        id: 4,
+        id: 5,
         title: "Handwritten Digit Recognizer",
         description: `
             <p>This project presents a handwritten digit recognition system based on deep learning techniques using the MNIST dataset. Key aspects include:</p>
